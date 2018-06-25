@@ -3,6 +3,8 @@
 import numpy as np
 import tensorflow as tf
 import math
+import glob
+import matplotlib.image as mpimg
 
 def random_mini_batches(X,Y, mini_batch_size=64, seed=0):
 	
@@ -51,3 +53,11 @@ def predict(X, parameters):
 	Z3 = tf.add(tf.matmul(W3, A2), b3)                     # Z3 = np.dot(W3,Z2) + b3
 
 	return Z3
+	
+def data_load(path,C, x_list, y_list):
+	folder=glob.glob(path+'/*')
+	for imgn in folder:
+		img=np.array(mpimg.imread(imgn))
+		x_list.append(img)
+		y_list.append(C)
+	return (x_list, y_list)	
