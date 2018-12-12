@@ -4,8 +4,8 @@ import glob
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
-import tensorflow as tf
-from tensorflow.python.framework import ops
+# import tensorflow as tf
+# from tensorflow.python.framework import ops
 	
 def load_images(data_directory):
 	img_data = []
@@ -99,17 +99,19 @@ def load_images_for_inferencing(data_directory):
 	#print (img_data.shape)	
 	return img_data
 
-def inferce_prediction(image_data, parameters):
-	#X, Y = create_placeholders(n_H0, n_W0, n_C0, n_y)
-	Z3 = forward_propagation(X, parameters)
-	with tf.Session() as sess:
-		predict_op = tf.argmax(Z3, 1)
-		correct_prediction = tf.equal(predict_op, tf.argmax(Y, 1))
-		accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float")).eval({X: image_data})
-		#test_accuracy = accuracy.eval({X: X_test, Y: Y_test})
+# def inferce_prediction(image_data, parameters):
+# 	#X, Y = create_placeholders(n_H0, n_W0, n_C0, n_y)
+# 	Z3 = forward_propagation(X, parameters)
+# 	predict_op = tf.argmax(Z3, 1)
+# 	predicted_label = sess.run
+# 	with tf.Session() as sess:
+# 		predict_op = tf.argmax(Z3, 1)
+# 		correct_prediction = tf.equal(predict_op, tf.argmax(Y, 1))
+# 		accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float")).eval({X: image_data})
+# 		#test_accuracy = accuracy.eval({X: X_test, Y: Y_test})
 		
-	print ("test accuracy: ", test_accuracy)
-	return parameters
+# 	print ("test accuracy: ", test_accuracy)
+# 	return parameters
  
-images_for_inferencing = load_images_for_inferencing('input')	
+# images_for_inferencing = load_images_for_inferencing('input')	
 
