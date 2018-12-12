@@ -1,3 +1,4 @@
+import pickle
 import os
 import math
 import glob
@@ -26,12 +27,16 @@ def load_images(data_directory):
 			img_data.append(img)
 			img_class.append(class_name)
 
-	class_dict = convert_className_to_classLabel(classes)
+	dict_name_to_label, dict_label_to_name  = convert_className_to_classLabel(classes)
 	dataset["set_x"] = img_data	
-	dataset["set_y"] = [class_dict[i] for i in img_class]
-	dataset["classes"] = [class_dict[i] for i in classes]
+	dataset["set_y"] = [dict_name_to_label[i] for i in img_class]
+	dataset["classes"] = [dict_name_to_label[i] for i in classes]
 	
-	return len(dataset["classes"]), dataset 
+	return len(dataset["classes"]), dict_label_to_name, dataset 
+
+def pickle_generator(dict_label_to_name):
+	with open('./modelData/dict_label_to_name.pickle', 'wb') as handle:
+		pickle.dump(dict_label_to_name, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 def load_dataset(train_dataset, test_dataset):
 	train_set_x_orig = np.array(train_dataset["set_x"][:]) #train set features
@@ -52,13 +57,18 @@ def convert_to_one_hot(Y, C):
 	return Y
 
 def convert_className_to_classLabel(classes):
-	class_dict={}
+	dict_name_to_label = {}
+	dict_label_to_name = {}
+	
 	class_labels = [item[0] for item in enumerate(classes)]
 
 	for i in range(len(class_labels)):
-		class_dict[classes[i]]=class_labels[i]
+		dict_name_to_label[classes[i]] = class_labels[i]
 
-	return class_dict   
+	for i in range(len(class_labels)):
+		dict_label_to_name[class_labels[i]] = classes[i]
+
+	return dict_name_to_label, dict_label_to_name   
 
 def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
 	m = X.shape[0]
@@ -87,16 +97,6 @@ def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
 
 	return mini_batches		
 
-def load_images_for_inferencing(data_directory):
-	img_data = []
-	images = glob.glob('./'+data_directory+'/*')
 
-	for image in images:
-		img = Image.open(image)
-		img = np.array(img)
-		img_data.append(img)
-	img_data = np.array(img_data)	
-	#print (img_data.shape)	
-	return img_data
 
 
