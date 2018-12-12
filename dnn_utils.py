@@ -31,7 +31,7 @@ def load_images(data_directory):
 	dataset["set_y"] = [class_dict[i] for i in img_class]
 	dataset["classes"] = [class_dict[i] for i in classes]
 	
-	return dataset
+	return len(dataset["classes"]), dataset 
 
 def load_dataset(train_dataset, test_dataset):
 	train_set_x_orig = np.array(train_dataset["set_x"][:]) #train set features
@@ -99,19 +99,4 @@ def load_images_for_inferencing(data_directory):
 	#print (img_data.shape)	
 	return img_data
 
-# def inferce_prediction(image_data, parameters):
-# 	#X, Y = create_placeholders(n_H0, n_W0, n_C0, n_y)
-# 	Z3 = forward_propagation(X, parameters)
-# 	predict_op = tf.argmax(Z3, 1)
-# 	predicted_label = sess.run
-# 	with tf.Session() as sess:
-# 		predict_op = tf.argmax(Z3, 1)
-# 		correct_prediction = tf.equal(predict_op, tf.argmax(Y, 1))
-# 		accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float")).eval({X: image_data})
-# 		#test_accuracy = accuracy.eval({X: X_test, Y: Y_test})
-		
-# 	print ("test accuracy: ", test_accuracy)
-# 	return parameters
- 
-# images_for_inferencing = load_images_for_inferencing('input')	
 

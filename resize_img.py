@@ -23,7 +23,7 @@ def  binary2rgb(img):
 	img_rgb = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
 	return img_rgb
 
-image_folder = glob.glob('./no_helmet/*')
+image_folder = glob.glob('./del/New folder/*')
 for image_file in image_folder:
 	img = cv2.imread(image_file)
 	#img = color2grey(img)
@@ -39,5 +39,5 @@ for image_file in image_folder:
 		size = size/2
 	#img = binary2rgb(img)
 	print (img.shape)	
-	cv2.imwrite(str(i)+'_'+filename, img)
+	cv2.imwrite('./del/'+str(i)+'_'+filename, img)
 
